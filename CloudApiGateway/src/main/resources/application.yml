@@ -1,0 +1,53 @@
+
+################ for actuator #############
+management:
+    endpoints: 
+      web:
+        exposure:
+          include: "*"
+ ##########################################         
+
+server:
+  port: 9093
+spring:
+  application:
+    name: API-Gateway
+  cloud:
+    gateway:
+      mvc:
+        routes:
+        - id: USER-APP
+          uri: lb://USER-APP
+          predicates:
+          - Path=/users/**
+          
+        - id: HOTEL-APP
+          uri: lb://HOTEL-APP
+          predicates:
+          - Path=/hotel/**,/staff/**
+          
+        - id: RATING-APP
+          uri: lb://RATING-APP
+          predicates: 
+          - Path=/rating/**
+              
+              
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+
+ 
+    
+    
+    
+    
+    
+    
+    
+    
